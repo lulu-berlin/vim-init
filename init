@@ -1,0 +1,51 @@
+#/bin/bash
+
+if [ -e ~/.vim ] || [ -e ~/.vimrc ] ; then
+    echo ".vim or .vimrc already exist. Quitting."
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# install vimrc
+cp "$DIR/.vimrc" ~/.vimrc
+
+# install pathogen
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# install hebrew keymap
+mkdir -p ~/.vim/keymap && cp "$DIR/hebrew_lyx.vim" ~/.vim/keymap/hebrew_lyx.vim
+
+# create bundle directory and install plugins
+mkdir -p ~/.vim/bundle && ( \
+    cd ~/.vim/bundle
+
+    git clone git://github.com/yever/rtl.vim
+
+    git clone git://github.com/junegunn/limelight.vim
+    git clone git://github.com/junegunn/goyo.vim
+
+    git clone git://github.com/reedes/vim-pencil
+
+    git clone git://github.com/altercation/vim-colors-solarized
+
+    git clone git://github.com/xolox/vim-notes
+    git clone git://github.com/xolox/vim-misc
+
+    git clone git://github.com/scrooloose/nerdtree
+    git clone git://github.com/scrooloose/syntastic
+
+    git clone git://github.com/alx741/vinfo.git
+
+    git clone git://github.com/ervandew/supertab
+
+    git clone git://github.com/klen/python-mode
+
+    git clone git://github.com/maksimr/vim-jsbeautify
+
+    git clone git://github.com/tpope/vim-sensible
+    git clone git://github.com/tpope/vim-fugitive
+    git clone git://github.com/tpope/vim-surround
+    git clone git://github.com/tpope/vim-unimpaired
+)
